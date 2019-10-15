@@ -8,6 +8,8 @@ import (
 type config struct {
 	Development bool
 
+	Log string
+
 	Host string
 	Port int
 }
