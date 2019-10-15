@@ -2,38 +2,56 @@ package main
 
 import (
 	"flag"
+	"log"
 	"os"
 
-	log "github.com/sirupsen/logrus"
+	"github.com/sirupsen/logrus"
+	"github.com/youtubedl-web/backend"
+
+	"github.com/fatih/color"
+
+	h "github.com/youtubedl-web/backend/http"
 )
 
 var path string
+var logger = logrus.New()
 
 func init() {
 	// setup flags
 	flag.StringVar(&path, "path", "config.json", "Path to config file")
+	flag.Parse()
 
-	// setup logrus;
+	// setup logrus
 
 	// logs on json format
-	log.SetFormatter(&log.JSONFormatter{
+	logger.SetFormatter(&logrus.JSONFormatter{
 		TimestampFormat: "02-01-2006 15:04:05",
 	})
 
 	// include method info
-	log.SetReportCaller(true)
+	logger.SetReportCaller(true)
 }
 
 func main() {
 	c, err := loadConfig(path)
 	if err != nil {
-		log.Error(err)
+		color.Red("Couldn't open JSON config file")
+		os.Exit(1)
+	}
+
+	cfg := &backend.Config{
+		Development:    c.Development,
+		Host:           c.Host,
+		Port:           c.Port,
+		Logger:         logger,
+		ExecutablePath: c.YoutubeExecutable,
 	}
 
 	// if the development mode is not active
 	// change logrus level to warnings
-	log.SetLevel(log.ErrorLevel)
+	logger.SetLevel(logrus.ErrorLevel)
 
+	// open log output file
 	logPath := "backend.log"
 	if len(c.Log) > 0 {
 		logPath = c.Log
@@ -41,8 +59,12 @@ func main() {
 
 	f, err := os.OpenFile(logPath, os.O_WRONLY|os.O_CREATE, 0755)
 	if err != nil {
-		log.Error(err)
+		color.Red("Couldn't open log file (filename: %s)", logPath)
+		os.Exit(1)
 	}
 
+	// set logs output file
 	log.SetOutput(f)
+
+	h.Serve(cfg)
 }

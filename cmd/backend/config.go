@@ -8,8 +8,11 @@ import (
 type config struct {
 	Development bool
 
-	Log string
+	// Paths
+	YoutubeExecutable string
+	Log               string
 
+	// API web server
 	Host string
 	Port int
 }
