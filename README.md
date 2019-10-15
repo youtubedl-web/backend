@@ -17,3 +17,7 @@ go install github.com/youtubedl-web/backend/cmd/backend
 # Run the compiled application
 backend
 ```
+
+## Contributing
+
+First of all thank you so much for your desire to contribute to this project. To make things easier all the architecture, design choices and engineering stuff will be saved on the Wiki tab of this repository in order to keep this README short and clear.
