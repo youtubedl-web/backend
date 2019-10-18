@@ -5,11 +5,10 @@ import (
 	"log"
 	"os"
 
-	"github.com/sirupsen/logrus"
-	"github.com/youtubedl-web/backend"
-
 	"github.com/fatih/color"
+	"github.com/sirupsen/logrus"
 
+	"github.com/youtubedl-web/backend"
 	h "github.com/youtubedl-web/backend/http"
 )
 

@@ -2,6 +2,6 @@
   "Development": false,
   "Host": "localhost",
   "Port": 5000,
-  "YoutubeExecutable": "youtuble-dl.exe",
+  "YoutubeExecutable": "youtube-dl.exe",
   "Log": "logs.json"
 }
