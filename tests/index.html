@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+  </head>
+  <body>
+      <script src="https://cdn.jsdelivr.net/npm/web-streams-polyfill@2.0.2/dist/ponyfill.min.js"></script>
+      <script src="StreamSaver.js"></script>
+      <script>
+          import streamSaver from 'StreamSaver'
+          const streamSaver = require('StreamSaver')
+          const streamSaver = window.streamSaver
+      </script> 
+      <script>
+        const fileStream = streamSaver.createWriteStream('filename.txt', {
+          size: 22, // (optional) Will show progress
+          writableStrategy: undefined, // (optional)
+          readableStrategy: undefined  // (optional)
+        })
+       
+        new Response('StreamSaver is awesome').body
+          .pipeTo(fileStream)
+          .then(success, error)
+      </script> 
+
+
+  </body>
+</html>

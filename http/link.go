@@ -80,6 +80,7 @@ func GetVideoLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 
 	// start commandvideo
 	err = cmd.Start()
+	
 	if err != nil {
 		c.Logger.Errorf("[%s] Cannot get video download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL, err.Error())
 	}
