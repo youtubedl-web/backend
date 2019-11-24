@@ -14,14 +14,13 @@ import (
 // GetAudioLink creates a link for the user to download the MP3 audio file from a youtube video
 func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (int, error) {
 	vars := mux.Vars(r)
-
 	videoURL := vars["url"]
 
 	// log video download
-	c.Logger.Infof("[%s] Fetching audio download link for %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL)
+	c.Logger.Infof("[%s] Fetching audio download link for %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL)
 
 	// run youtube-dl
-	cmd := exec.Command(c.ExecutablePath, "--get-url", "-x", "https://www.youtube.com/watch?v="+videoURL)
+	cmd := exec.Command(c.ExecutablePath, "-f bestaudio", "-x", "https://www.youtube.com/watch?v="+videoURL)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		color.Red("Couldn't connect stdout pipe")
@@ -80,7 +79,7 @@ func GetVideoLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 
 	// start commandvideo
 	err = cmd.Start()
-	
+
 	if err != nil {
 		c.Logger.Errorf("[%s] Cannot get video download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL, err.Error())
 	}
