@@ -12,6 +12,9 @@ type Config struct {
 	Logger         *logrus.Logger
 	ExecutablePath string
 
-	Host string
-	Port int
+	// Public Address
+	PublicHost string
+	Host       string
+	Port       int
+	Storage    string
 }

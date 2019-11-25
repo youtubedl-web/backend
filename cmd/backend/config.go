@@ -12,9 +12,14 @@ type config struct {
 	YoutubeExecutable string
 	Log               string
 
+	// Public Address
+	PublicHost string
+
 	// API web server
 	Host string
 	Port int
+
+	Storage string
 }
 
 func loadConfig(path string) (*config, error) {

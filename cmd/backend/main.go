@@ -44,6 +44,8 @@ func main() {
 		Port:           c.Port,
 		Logger:         logger,
 		ExecutablePath: c.YoutubeExecutable,
+		Storage:        c.Storage,
+		PublicHost:     c.PublicHost,
 	}
 
 	// if the development mode is not active

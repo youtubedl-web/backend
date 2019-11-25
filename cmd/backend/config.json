@@ -1,7 +1,9 @@
 {
   "Development": false,
+  "PublicHost": "localhost",
   "Host": "localhost",
   "Port": 5000,
   "YoutubeExecutable": "youtube-dl.exe",
-  "Log": "logs.json"
+  "Log": "ytdl-web.log",
+  "Storage": "D:/Data/ytdlweb"
 }
