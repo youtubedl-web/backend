@@ -6,6 +6,7 @@ import (
 	"strconv"
 
 	"github.com/fatih/color"
+	"github.com/gorilla/handlers"
 	"github.com/gorilla/mux"
 	"github.com/youtubedl-web/backend"
 )
@@ -21,5 +22,5 @@ func Serve(c *backend.Config) {
 
 	fmt.Printf("Server running on port ")
 	color.Green(strconv.Itoa(c.Port))
-	http.ListenAndServe(c.Host+":"+strconv.Itoa(c.Port), r)
+	http.ListenAndServe(c.Host+":"+strconv.Itoa(c.Port), handlers.CORS()(r))
 }

@@ -49,7 +49,7 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	// run command
 	err = cmd.Start()
 	if err != nil {
-		c.Logger.Errorf("[%s] Cannot get audio download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL, err.Error())
+		c.Logger.Errorf("[%s] Cannot get audio download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL, err.Error())
 	}
 
 	stdoutOutput, _ := ioutil.ReadAll(stdout)
@@ -63,7 +63,7 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	// watch command exit status
 	err = cmd.Wait()
 	if err != nil {
-		c.Logger.Errorf("[%s] Cannot get audio download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL, err.Error())
+		c.Logger.Errorf("[%s] Cannot get audio download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL, err.Error())
 		c.Logger.Warnf("[%s] Standard Output and Error:\n\tStdout %s\n\tStderr: %s", r.RemoteAddr, stdoutOutput, stderrOutput)
 
 		if exiterr, ok := err.(*exec.ExitError); ok {
@@ -94,7 +94,7 @@ func GetVideoLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	}
 
 	// log video download
-	c.Logger.Infof("[%s] Fetching video download link for %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL)
+	c.Logger.Infof("[%s] Fetching video download link for %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL)
 
 	// run youtube-dl
 	cmd := exec.Command(c.ExecutablePath, "-f bestvideo+bestaudio", "https://www.youtube.com/watch?v="+videoURL)
@@ -112,7 +112,7 @@ func GetVideoLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	err = cmd.Start()
 
 	if err != nil {
-		c.Logger.Errorf("[%s] Cannot get video download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL, err.Error())
+		c.Logger.Errorf("[%s] Cannot get video download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL, err.Error())
 	}
 
 	stdoutOutput, _ := ioutil.ReadAll(stdout)
@@ -125,7 +125,7 @@ func GetVideoLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 
 	err = cmd.Wait()
 	if err != nil {
-		c.Logger.Errorf("[%s] Cannot get video download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch? ="+videoURL, err.Error())
+		c.Logger.Errorf("[%s] Cannot get video download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL, err.Error())
 		c.Logger.Warnf("[%s] Standard Output and Error:\n\tStdout %s\n\tStderr: %s", r.RemoteAddr, stdoutOutput, stderrOutput)
 
 		if exiterr, ok := err.(*exec.ExitError); ok {

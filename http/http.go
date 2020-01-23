@@ -51,6 +51,9 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 			return
 		}()
 
+		w.Header().Set("Access-Control-Allow-Origin", "*")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+
 		code, err = h(w, r, c)
 	}
 }
