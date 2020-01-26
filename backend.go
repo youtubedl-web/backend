@@ -13,6 +13,7 @@ type Config struct {
 	ExecutablePath string
 
 	// Public Address
+	Secure     bool
 	PublicHost string
 	Host       string
 	Port       int

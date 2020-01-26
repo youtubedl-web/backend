@@ -1,6 +1,7 @@
 package http
 
 import (
+	"io"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -33,20 +34,30 @@ func DownloadFile(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	// rename file to the correct format
 	os.Rename(files[0].Name(), fixedFilename)
 
+	// open file
+	f, err := os.Open(fixedFilename)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
 	// get file size
 	fi, err := os.Stat(fixedFilename)
 	if err != nil {
 		return http.StatusInternalServerError, err
 	}
 
-	// file size
+	// convert size int64 to string
 	size := strconv.FormatInt(fi.Size(), 10)
 
 	// Set important headers
-	w.Header().Set("Content-Disposition", "attachment; filename="+fixedFilename)
-	// w.Header().Set("Content-Type", "audio/mpeg")
+	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Content-Disposition", `attachment; filename="`+fixedFilename+`"`)
 	w.Header().Set("Content-Length", size)
-	http.ServeFile(w, r, fixedFilename)
+
+	// copy the file to the response
+	io.Copy(w, f)
+
+	// http.ServeFile(w, r, fixedFilename)
 
 	return 0, nil
 }

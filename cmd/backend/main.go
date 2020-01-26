@@ -40,6 +40,7 @@ func main() {
 
 	cfg := &backend.Config{
 		Development:    c.Development,
+		Secure:         c.Secure,
 		Host:           c.Host,
 		Port:           c.Port,
 		Logger:         logger,

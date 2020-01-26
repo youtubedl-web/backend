@@ -16,8 +16,9 @@ type config struct {
 	PublicHost string
 
 	// API web server
-	Host string
-	Port int
+	Secure bool
+	Host   string
+	Port   int
 
 	Storage string
 }

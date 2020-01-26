@@ -58,8 +58,14 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 
 	// generate download link
 	link := &backend.Link{
-		URL: c.PublicHost + ":" + strconv.Itoa(c.Port) + "/dl/" + hash,
+		URL: "",
 	}
+
+	if link.URL = "http://"; c.Secure {
+		link.URL = "https://"
+	}
+
+	link.URL += c.PublicHost + ":" + strconv.Itoa(c.Port) + "/dl/" + hash
 
 	// watch command exit status
 	err = cmd.Wait()
