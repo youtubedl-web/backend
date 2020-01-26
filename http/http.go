@@ -19,6 +19,16 @@ type response struct {
 // Wrap is a handler for the API methods which converts them into standard HandlerFunc
 func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+		// handle pre-flight requests
+		w.Header().Set("Access-Control-Allow-Headers", "content-type")
+		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
+
+		// don't waste computing efforts when the request method is OPTIONS
+		if r.Method == "OPTIONS" {
+			return
+		}
+
 		var (
 			code int
 			err  error
@@ -40,6 +50,8 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 			// marshal struct into json and write it into the response
 			// set content-type
 			w.Header().Set("Content-Type", "application/json")
+			w.WriteHeader(code)
+			
 			// marshal and write
 			buf, err := json.MarshalIndent(res, "", "  ")
 			if err != nil {
@@ -50,9 +62,6 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 
 			return
 		}()
-
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
 
 		code, err = h(w, r, c)
 	}

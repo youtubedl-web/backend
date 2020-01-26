@@ -7,6 +7,7 @@ import (
 	"os"
 	"path/filepath"
 	"strconv"
+	"strings"
 
 	"github.com/gorilla/mux"
 	"github.com/youtubedl-web/backend"
@@ -26,14 +27,26 @@ func DownloadFile(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 		log.Fatal(err)
 	}
 
+	// remove trailing whitespaces and the single quotes
+	fixedFilename := strings.ReplaceAll(strings.Trim(files[0].Name(), "\t \n"), "'", "")
+
+	// rename file to the correct format
+	os.Rename(files[0].Name(), fixedFilename)
+
+	// get file size
+	fi, err := os.Stat(fixedFilename)
+	if err != nil {
+		return http.StatusInternalServerError, err
+	}
+
 	// file size
-	size := strconv.Itoa(int(files[0].Size()))
+	size := strconv.FormatInt(fi.Size(), 10)
 
 	// Set important headers
-	w.Header().Set("Content-Disposition", "attachment; filename="+files[0].Name())
-	w.Header().Set("Content-Type", "application/octet-stream")
+	w.Header().Set("Content-Disposition", "attachment; filename="+fixedFilename)
+	// w.Header().Set("Content-Type", "audio/mpeg")
 	w.Header().Set("Content-Length", size)
-	http.ServeFile(w, r, files[0].Name())
+	http.ServeFile(w, r, fixedFilename)
 
 	return 0, nil
 }

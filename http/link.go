@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"strconv"
 
 	"github.com/fatih/color"
 	"github.com/gorilla/mux"
@@ -35,7 +36,7 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	c.Logger.Infof("[%s] Fetching audio download link for %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL)
 
 	// prepare command
-	cmd := exec.Command(c.ExecutablePath, "-f bestaudio", "--extract-audio", "-o '%(title)s.%(ext)s'", "https://www.youtube.com/watch?v="+videoURL)
+	cmd := exec.Command(c.ExecutablePath, "-f bestaudio", "--extract-audio", `-o '%(title)s.%(ext)s'`, "https://www.youtube.com/watch?v="+videoURL)
 	stdout, err := cmd.StdoutPipe()
 	if err != nil {
 		color.Red("Couldn't connect stdout pipe")
@@ -57,7 +58,7 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 
 	// generate download link
 	link := &backend.Link{
-		URL: c.PublicHost + "/dl/" + hash,
+		URL: c.PublicHost + ":" + strconv.Itoa(c.Port) + "/dl/" + hash,
 	}
 
 	// watch command exit status
