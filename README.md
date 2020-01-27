@@ -7,7 +7,9 @@ This repository contains all the necessary code and tools to run the backend of 
 
 First things first, the only requirement is to have a recent version of Golang (+1.13) installed. 
 
-Let's then fetch this repo using go tools:
+All it's needed to run the backend application is a config.json file (an example can be found [here](https://github.com/youtubedl-web/backend/blob/master/cmd/backend/config_example.json)).
+
+Note: The config.json resides in the same folder in which you run the backend application
 ```
 go get github.com/youtubedl-web/backend
 
