@@ -39,14 +39,16 @@ func main() {
 	}
 
 	cfg := &backend.Config{
-		Development:    c.Development,
-		Secure:         c.Secure,
-		Host:           c.Host,
-		Port:           c.Port,
-		Logger:         logger,
-		ExecutablePath: c.YoutubeExecutable,
-		Storage:        c.Storage,
-		PublicHost:     c.PublicHost,
+		Development:               c.Development,
+		Secure:                    c.Secure,
+		AllowedOrigins:            c.AllowedOrigins,
+		AllowedOriginsDevelopment: c.AllowedOriginsDevelopment,
+		Host:                      c.Host,
+		Port:                      c.Port,
+		Logger:                    logger,
+		ExecutablePath:            c.YoutubeExecutable,
+		Storage:                   c.Storage,
+		PublicHost:                c.PublicHost,
 	}
 
 	// if the development mode is not active

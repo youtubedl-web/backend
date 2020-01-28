@@ -12,6 +12,9 @@ type Config struct {
 	Logger         *logrus.Logger
 	ExecutablePath string
 
+	AllowedOrigins            string
+	AllowedOriginsDevelopment string
+
 	// Public Address
 	Secure     bool
 	PublicHost string

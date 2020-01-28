@@ -13,7 +13,9 @@ type config struct {
 	Log               string
 
 	// Public Address
-	PublicHost string
+	AllowedOrigins            string
+	AllowedOriginsDevelopment string
+	PublicHost                string
 
 	// API web server
 	Secure bool
