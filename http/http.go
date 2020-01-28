@@ -84,5 +84,5 @@ func LogRequest(method string, url string, reqAddr string) {
 	color.New(color.FgGreen, color.Bold).Printf("INFO")
 	fmt.Printf("]")
 
-	fmt.Printf(" %s request to %s by %s", strings.ToUpper(method), url, reqAddr)
+	fmt.Printf(" %s request to %s by %s\n", strings.ToUpper(method), url, reqAddr)
 }
