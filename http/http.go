@@ -25,9 +25,14 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 		// LOG REQUESTS
 		LogRequest(r.Method, r.URL.Path, r.RemoteAddr)
 
+		allowedOrigin := "https://youtubedlwebui.netlify.com"
+		if c.Development {
+			allowedOrigin = "localhost:3000"
+		}
+
 		// handle pre-flight requests
 		w.Header().Set("Access-Control-Allow-Headers", "content-type")
-		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
+		w.Header().Set("Access-Control-Allow-Origin", allowedOrigin)
 		w.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
 
 		// don't waste computing efforts when the request method is OPTIONS

@@ -1,5 +1,5 @@
 {
-  "Development": false,
+  "Development": true,
   "PublicHost": "localhost",
   "Secure": false,
   "Host": "localhost",
