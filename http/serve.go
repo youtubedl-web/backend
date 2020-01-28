@@ -19,6 +19,9 @@ func Serve(c *backend.Config) {
 
 	r.HandleFunc("/dl/{hash}", Wrap(DownloadFile, c)).Methods("GET", "OPTIONS")
 
+	// application status check
+	r.HandleFunc("/ping", Wrap(APIStatus, c)).Methods("GET", "OPTIONS")
+
 	fmt.Printf("Server running on port ")
 	color.Green(strconv.Itoa(c.Port))
 	http.ListenAndServe(":"+strconv.Itoa(c.Port), r)
