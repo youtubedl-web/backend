@@ -1,0 +1,53 @@
+{
+	"ImportPath": "github.com/youtubedl-web/backend/cmd/backend",
+	"GoVersion": "go1.13",
+	"GodepVersion": "v80",
+	"Deps": [
+		{
+			"ImportPath": "github.com/fatih/color",
+			"Comment": "v1.7.0-5-g3f9d52f",
+			"Rev": "3f9d52f7176a6927daacff70a3e8d1dc2025c53e"
+		},
+		{
+			"ImportPath": "github.com/gorilla/mux",
+			"Comment": "v1.7.3-9-g884b5ff",
+			"Rev": "884b5ffcbd3a11b730f0b75f5c86ac408753c34d"
+		},
+		{
+			"ImportPath": "github.com/konsorten/go-windows-terminal-sequences",
+			"Comment": "v1.0.2",
+			"Rev": "f55edac94c9bbba5d6182a4be46d86a2c9b5b50e"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-colorable",
+			"Comment": "v0.1.4-3-gc742d6f",
+			"Rev": "c742d6fb21c22a5bb6f768a683e6782e52fe0311"
+		},
+		{
+			"ImportPath": "github.com/mattn/go-isatty",
+			"Comment": "v0.0.12-3-gcb30d62",
+			"Rev": "cb30d6282491c185f77d9bec5d25de1bb61a06bc"
+		},
+		{
+			"ImportPath": "github.com/sirupsen/logrus",
+			"Comment": "v1.4.2-37-gfb62dbe",
+			"Rev": "fb62dbe2f2a2c88b150fa1668a773505a7920a3d"
+		},
+		{
+			"ImportPath": "github.com/youtubedl-web/backend",
+			"Rev": "0c0e0e371e2c22ea1c2b5823665dd3b510c312bb"
+		},
+		{
+			"ImportPath": "github.com/youtubedl-web/backend/file",
+			"Rev": "0c0e0e371e2c22ea1c2b5823665dd3b510c312bb"
+		},
+		{
+			"ImportPath": "github.com/youtubedl-web/backend/http",
+			"Rev": "0c0e0e371e2c22ea1c2b5823665dd3b510c312bb"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "b4ddaad3f8a36719f2b8bc6486c14cc468ca2bb5"
+		}
+	]
+}

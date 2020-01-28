@@ -1,0 +1,5 @@
+*.log
+tests/
+
+# config files
+config.json
