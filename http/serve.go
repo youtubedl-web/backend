@@ -21,5 +21,5 @@ func Serve(c *backend.Config) {
 
 	fmt.Printf("Server running on port ")
 	color.Green(strconv.Itoa(c.Port))
-	http.ListenAndServe(c.Host+":"+strconv.Itoa(c.Port), r)
+	http.ListenAndServe(":"+strconv.Itoa(c.Port), r)
 }
