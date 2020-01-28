@@ -73,6 +73,7 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 	}
 }
 
+// LogRequest prints every request info (method, url and request remote address)
 func LogRequest(method string, url string, reqAddr string) {
 	fmt.Printf("[")
 	color.New(color.FgGreen, color.Bold).Printf("INFO")
