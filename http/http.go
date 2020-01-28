@@ -2,7 +2,9 @@ package http
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/youtubedl-web/backend"
@@ -19,6 +21,10 @@ type response struct {
 // Wrap is a handler for the API methods which converts them into standard HandlerFunc
 func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {
+
+		// LOG REQUESTS
+		LogRequest(r.Method, r.URL.Path, r.RemoteAddr)
+
 		// handle pre-flight requests
 		w.Header().Set("Access-Control-Allow-Headers", "content-type")
 		w.Header().Set("Access-Control-Allow-Origin", "http://localhost:3000")
@@ -51,7 +57,7 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 			// set content-type
 			w.Header().Set("Content-Type", "application/json")
 			w.WriteHeader(code)
-			
+
 			// marshal and write
 			buf, err := json.MarshalIndent(res, "", "  ")
 			if err != nil {
@@ -65,4 +71,12 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 
 		code, err = h(w, r, c)
 	}
+}
+
+func LogRequest(method string, url string, reqAddr string) {
+	fmt.Printf("[")
+	color.New(color.FgGreen, color.Bold).Printf("INFO")
+	fmt.Printf("]")
+
+	fmt.Printf(" %s request to %s by %s", strings.ToUpper(method), url, reqAddr)
 }
