@@ -25,9 +25,11 @@ func Wrap(h RequestHandler, c *backend.Config) http.HandlerFunc {
 		// LOG REQUESTS
 		LogRequest(r.Method, r.URL.Path, r.RemoteAddr)
 
-		allowedOrigins := c.AllowedOrigins
+		allowedOrigins := "*"
 		if c.Development {
 			allowedOrigins = c.AllowedOriginsDevelopment
+		} else {
+			allowedOrigins = c.AllowedOrigins
 		}
 
 		// handle pre-flight requests
