@@ -33,7 +33,7 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	}
 
 	// log download
-	c.Logger.Infof("[%s] Fetching audio download link for %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL)
+	c.Logger.Infof("[%s] Fetching audio download link for %s", r.RemoteAddr, "https://www.youtube.com/watch?v="+videoURL)
 
 	// prepare command
 	cmd := exec.Command(c.ExecutablePath, "-f bestaudio", "--extract-audio", `-o '%(title)s.%(ext)s'`, "https://www.youtube.com/watch?v="+videoURL)
@@ -50,7 +50,7 @@ func GetAudioLink(w http.ResponseWriter, r *http.Request, c *backend.Config) (in
 	// run command
 	err = cmd.Start()
 	if err != nil {
-		c.Logger.Errorf("[%s] Cannot get audio download link for %s. Error: %s", r.RemoteAddr, "http://www.youtube.com/watch?v="+videoURL, err.Error())
+		c.Logger.Errorf("[%s] Cannot get audio download link for %s. Error: %s", r.RemoteAddr, "https://www.youtube.com/watch?v="+videoURL, err.Error())
 	}
 
 	stdoutOutput, _ := ioutil.ReadAll(stdout)

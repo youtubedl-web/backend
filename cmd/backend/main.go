@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"log"
 	"os"
 
 	"github.com/fatih/color"
@@ -19,16 +18,6 @@ func init() {
 	// setup flags
 	flag.StringVar(&path, "path", "config.json", "Path to config file")
 	flag.Parse()
-
-	// setup logrus
-
-	// logs on json format
-	logger.SetFormatter(&logrus.JSONFormatter{
-		TimestampFormat: "02-01-2006 15:04:05",
-	})
-
-	// include method info
-	logger.SetReportCaller(true)
 }
 
 func main() {
@@ -51,9 +40,19 @@ func main() {
 		PublicHost:                c.PublicHost,
 	}
 
+	// setup logrus
+
+	// logs on json format
+	logger.SetFormatter(&logrus.JSONFormatter{
+		TimestampFormat: "02-01-2006 15:04:05",
+	})
+
+	// include method info
+	logger.SetReportCaller(true)
+
 	// if the development mode is not active
 	// change logrus level to warnings
-	logger.SetLevel(logrus.ErrorLevel)
+	logger.SetLevel(logrus.InfoLevel)
 
 	// open log output file
 	logPath := "backend.log"
@@ -68,7 +67,7 @@ func main() {
 	}
 
 	// set logs output file
-	log.SetOutput(f)
+	logger.SetOutput(f)
 
 	h.Serve(cfg)
 }
